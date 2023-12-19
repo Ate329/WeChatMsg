@@ -16,7 +16,7 @@
 </div>
 
 <div align="center">
-<a><img src="./doc/images/logo.png" height="240"/></a>
+<a href="http://memotrace.lc044.love/"><img src="https://blog.lc044.love/static/img/91cadaae3a6f7ee133dafd4f9b5d8680.logo.webp" height="240"/></a>
 </div>
 <blockquote>
 <div style="background-color: #eaf7ea; border-radius: 10px; padding: 20px; position: relative;">
@@ -24,7 +24,8 @@
     <div style="position: absolute;top: 0;bottom: 0;left: 0;width: 2px;background-color: #000000;"></div>
     <h2>前言</h2>
     <div style="text-indent: 2em;">
-        <p style="text-indent:2em;">我深信有意义的不是微信，而是隐藏在对话框背后的一个个<strong>深刻故事</strong>。未来，每个人都能拥有AI的陪伴，而你的数据能够赋予它有关与你过去的珍贵记忆。我希望每个人都有将自己的生活痕迹👨‍👩‍👦👚🥗🏠️🚴🧋⛹️🛌🛀留存的权利，而不是将之遗忘💀。</p>
+        <a align="center" href="http://memotrace.lc044.love/"><img src="https://blog.lc044.love/static/img/6428156ae35a53d2f41433a1b27712ee.logo2.0-99.webp"/></a>
+        <p style="text-indent:2em;">我深信有意义的不是微信，而是隐藏在对话框背后的一个个<strong>深刻故事</strong>。未来，每个人都能拥有AI的陪伴，而你的数据能够赋予它有关于你过去的珍贵记忆。我希望每个人都有将自己的生活痕迹👨‍👩‍👦👚🥗🏠️🚴🧋⛹️🛌🛀留存的权利，而不是遗忘💀。</p>
         <p style="text-indent:2em;">AI的发展不仅仅是技术的提升，更是情感💞的延续。每一个对话、每一个互动都是生活中独一无二的片段，是真实而动人的情感交流。因此，我希望AI工作者们能够<strong>善用这些自己的数据</strong>，用于培训独特的、属于个体的人工智能。让<strong>个人AI成为生活中的朋友</strong>，能够理解、记录并分享我们的欢笑、泪水和成长。</p>
         <p style="text-indent:2em;">那天，AI不再是高不可攀的存在，而是融入寻常百姓家的一部分。因为<strong>每个人能拥有自己的AI</strong>，将科技的力量融入生活的方方面面。这是一场关于真情实感的革命，一场让技术变得更加人性化的探索，让我们共同见证未来的美好。</p>
         <p align="center"><strong>所以《留痕》</strong></p>
@@ -34,9 +35,9 @@
 </blockquote>
 
 ## 🍉功能
-
-- 🔒️🔑🔓️手机本地微信数据库
-- 🔒️🔑🔓️PC端本地微信数据库
+- [官网](https://memotrace.lc044.love/)
+- [点击预览](https://memotrace.lc044.love/demo.html)
+- 🔒️🔑🔓️Windows本地微信数据库
 - 还原微信聊天界面
     - 🗨文本✅
     - 🏝图片✅
@@ -44,7 +45,7 @@
     - 拍一拍等系统消息✅
 - 导出聊天记录
     - sqlite数据库✅
-    - HTML(文本、图片、视频、表情包)✅
+    - HTML(文本、图片、视频、表情包、语音)✅
     - CSV文档✅
     - TXT文档✅ 
     - Word文档❎
@@ -52,37 +53,28 @@
 - 🔥**项目持续更新中**
     - 导出全部表情包❎
     - 合并多个备份数据❎
-    - 语音❎
     - 文件❎
-
 - 小伙伴们想要其他功能可以留言哦📬
-- 有任何问题可以随时联系我(863909694@qq.com)
-
-为了方便大家交流，我新建了一个QQ群💬：**474379264**
-
-大家有任何想法💡、建议或bug可以群里反馈给我
-
-[//]: # (<img src="doc/images/qq.jpg" height=480/>)
 
 ## 🥤效果
 
 <details>
 
-<img alt="聊天界面" src="doc/images/chat_.png"/>
+<img alt="聊天界面" src="https://blog.lc044.love/static/img/b355c16c4a4037deec96fd87efecb74b.image.webp"/>
 
-![image-20230520235220104](doc/images/image-20230520235220104.png)
+![image-20230520235351749](https://blog.lc044.love/static/img/beb1500f349ce289406e0e8accac63c0.clipboard-2023-12-12.webp)
 
-![image-20230520235338305](doc/images/image-20230520235338305.png)
+![image-20230520235351749](https://blog.lc044.love/static/img/c0e17f989978f843147fa9b8d32949b8.clipboard-2023-12-12.webp)
 
-![image-20230520235351749](doc/images/image-20230520235351749.png)
+![image-20230520235351749](https://blog.lc044.love/static/img/47b4476a522f79286b71438bc78a1304.clipboard-2023-12-12.webp)
 
-![image-20230520235400772](doc/images/image-20230520235400772.png)
+![image-20230520235400772](https://blog.lc044.love/static/img/526e20e1b8cbcd9a20ea48e242433f0a.clipboard-2023-12-12.webp)
 
-![image-20230520235409112](doc/images/image-20230520235409112.png)
+![image-20230520235409112](https://blog.lc044.love/static/img/e74f9747bf9e686ae5bccc678fe0c7ad.clipboard-2023-12-12.webp)
 
-![image-20230520235422128](doc/images/image-20230520235422128.png)
+![image-20230520235422128](https://blog.lc044.love/static/img/22edd25fc32a7a11c13d1f36f6421997.clipboard-2023-12-12.webp)
 
-![image-20230520235431091](doc/images/image-20230520235431091.png)
+![image-20230520235431091](https://blog.lc044.love/static/img/f3f88205d4596c2d098996d86e5ede7e.clipboard-2023-12-12.webp)
 
 </details>
 
@@ -105,7 +97,7 @@
 # Python>=3.10
 git clone https://github.com/LC044/WeChatMsg
 cd WeChatMsg
-pip install -r requirements_pc.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ### 2. 使用
@@ -121,7 +113,7 @@ pip install -r requirements_pc.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 2. 运行程序
 
 ```shell
-python main_pc.py
+python main.py
 ```
 
 3. 点击获取信息
@@ -196,13 +188,6 @@ python main_pc.py
 
 ![](./doc/images/login_wx.png)
 
-如果您遇到下图所示的问题，需要先运行`decrypt_window`的可执行文件或者源代码文件
-
-```
-python decrypt_window.py
-```
-
-![](./doc/images/decrypt_wx.png)
 
 如果您在运行可执行程序的时候出现闪退的现象，请右击软件使用管理员权限运行。
 
@@ -213,7 +198,7 @@ python decrypt_window.py
 
 ![](./doc/images/with_wxid_name.png)
 
-如果出现如图所示的报错信息，将`app/database/msg`文件夹删除，重新运行`main_pc.py`。
+如果出现如图所示的报错信息，将`app/database/msg`文件夹删除，重新运行`main.py`。
 
 ![](./doc/images/err_log.png)
 
@@ -229,63 +214,6 @@ python decrypt_window.py
 
 </details>
 
-## 使用模拟器（支持可视化分析）
-
-<details>
-
-**不推荐使用，PC端微信可视化功能马上实现**
-
-1. 根据[教程](https://blog.csdn.net/m0_59452630/article/details/124222235?spm=1001.2014.3001.5501)获得两个文件
-    - auth_info_key_prefs.xml——解析数据库密码
-    - EnMicroMsg.db——聊天数据库
-    - **上面这两个文件就可以**
-2. 安装依赖库
-
-python版本>=3.10
-
-**说明:用到了python3.10的match语法，不方便更换python版本的小伙伴可以把match(运行报错的地方)更改为if else**
-
-命令行运行以下代码（**建议使用Pycharm打开项目，Pycharm会自动配置好所有东西，直接运行main.py即可**）
-
-```bash
-pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
-```
-
-运行main.py
-
-```bash
-python main.py
-```
-
-3. 出现解密界面
-
-![image-20230521001305274](doc/images/image-20230521001305274.png)
-
-按照提示选择上面获得的两个文件，等待解密完成，重新运行程序
-
-4. 进入主界面
-
-这时候不显示头像，因为头像文件没有导入进来
-
-![image-20230521001547481](doc/images/image-20230521001547481.png)
-
-根据[教程](https://blog.csdn.net/m0_59452630/article/details/124222235?spm=1001.2014.3001.5501)
-将头像文件夹avatar复制到工程目录./app/data/目录下
-
-![image-20230521001726799](doc/images/image-20230521001726799.png)
-
-如果想要显示聊天图像就把[教程](https://blog.csdn.net/m0_59452630/article/details/124222235?spm=1001.2014.3001.5501)
-里的image2文件夹复制到./app/data文件夹里，效果跟上图一样
-
-复制进来之后再运行程序就有图像了
-
-![image-20230520235113261](doc/images/image-20230520235113261.png)
-
-</details>
-
-## 项目还有很多bug，希望大家能够及时反馈
-
-项目地址：https://github.com/LC044/WeChatMsg
 
 # 🏆致谢
 
@@ -294,28 +222,14 @@ python main.py
 * 我的得力助手:[ChatGPT](https://chat.openai.com/)
 
 ---
-
+> \[!IMPORTANT]
+> 
 > 声明：该项目有且仅有一个目的：“留痕”——我的数据我做主，前提是“我的数据”其次才是“我做主”，禁止任何人以任何形式将其用于任何非法用途，对于使用该程序所造成的任何后果，所有创作者不承担任何责任🙄<br>
 > 该软件不会对您使用的微信造成任何影响，更不会对他人的微信造成任何影响，不能找回删除的聊天记录，任何企图篡改微信聊天数据的想法都是无稽之谈。本项目所有功能均建立在”前言“的基础之上，基于该项目的所有开发者均不能接受任何有悖于”前言“的功能需求，违者后果自负。
 > <br>该软件不存在任何收费，谨防上当受骗
 
 [![Star History Chart](https://api.star-history.com/svg?repos=LC044/WeChatMsg&type=Date)](https://star-history.com/?utm_source=bestxtools.com#LC044/WeChatMsg&Date)
 
-# 🎄温馨提示
-
-如果您在使用该软件的过程中
-
-* 发现新的bug
-* 有新的功能诉求
-* 操作比较繁琐
-* 觉得UI不够美观
-* 等其他给您造成困扰的地方
-
-请提起[issue](https://github.com/LC044/WeChatMsg/issues)或者添加QQ群(进群前先点个⭐哦):[**474379264**](doc/images/qq.jpg)
-，我将尽快为您解决问题
-
-如果您是一名开发者，有新的想法或建议，欢迎[fork](https://github.com/LC044/WeChatMsg/forks)
-该项目并发起[PR](https://github.com/LC044/WeChatMsg/pulls)，我将把您的名字写入贡献者名单中
 
 # 贡献者
 
@@ -339,9 +253,45 @@ python main.py
 感谢以下赞助者的慷慨支持：
 
 - [STDquantum](https://github.com/STDquantum)
+- [xuanli](https://github.com/xuanli)
 
 如果您提供赞助并希望出现在赞助者名单中，请在提交赞助时提供您的 GitHub 用户名或其他相关信息。
+
+您也可以在赞助时备注您的诉求，我将提前开发合理的功能需求。
 
 ## 感谢
 
 再次感谢您的支持，这对项目的持续发展至关重要！
+
+# 🎄温馨提示
+
+如果您在使用该软件的过程中
+
+* 发现新的bug
+* 有新的功能诉求
+* 操作比较繁琐
+* 觉得UI不够美观
+* 等其他给您造成困扰的地方
+
+请提起[issue](https://github.com/LC044/WeChatMsg/issues)，我将尽快为您解决问题
+
+如果您是一名开发者，有新的想法或建议，欢迎[fork](https://github.com/LC044/WeChatMsg/forks)
+该项目并发起[PR](https://github.com/LC044/WeChatMsg/pulls)，我将把您的名字写入贡献者名单中
+
+# 联系方式
+
+如果您遇到了问题，可以添加QQ群寻求帮助，由于精力有限，不能回答所有问题，所以还请您仔细阅读文档之后再考虑是否入群
+
+## 加群方式
+
+1. [fork](https://github.com/LC044/WeChatMsg/forks)该项目并发起[PR](https://github.com/LC044/WeChatMsg/pulls)
+2. 宣传该项目（在任一社交平台发图文介绍该项目）
+3. [赞助](#支持该项目)该项目
+4. 关注公众号并回复关键词“分享”，将图文消息转发至朋友圈集5个赞，截图私信
+5. QQ群：**701805520** （满足以上任意一条即可进群，不满足要求就别加了，不会通过的）
+
+注意：加群时请备注您的贡献，如PR链接、宣传截图或赞助金额，若没有审核通过，可添加QQ或发邮件：863909694@qq.com反馈问题（一定要备注来意）
+
+您也可以关注官方公众号，后续更新将会在公众号同步发布
+
+![](https://blog.lc044.love/static/img/3fd32f1732a2c8f53a7eb923472b8f19.clipboard-2023-12-18.webp)

@@ -3,8 +3,6 @@ import sqlite3
 import threading
 
 lock = threading.Lock()
-DB = None
-cursor = None
 db_path = "./app/Database/Msg/MicroMsg.db"
 
 
@@ -49,7 +47,7 @@ class MicroMsg:
             sql = '''SELECT UserName, Alias, Type, Remark, NickName, PYInitial, RemarkPYInitial, ContactHeadImgUrl.smallHeadImgUrl, ContactHeadImgUrl.bigHeadImgUrl
                     FROM Contact
                     INNER JOIN ContactHeadImgUrl ON Contact.UserName = ContactHeadImgUrl.usrName
-                    WHERE Type % 2 = 1
+                    WHERE (Type % 2 = 1 OR Type=2)
                         AND NickName != ''
                     ORDER BY 
                         CASE
@@ -61,7 +59,8 @@ class MicroMsg:
             result = self.cursor.fetchall()
         finally:
             lock.release()
-        return result
+        from app.DataBase import msg_db
+        return msg_db.get_contact(result)
 
     def get_contact_by_username(self, username):
         if not self.open_flag:

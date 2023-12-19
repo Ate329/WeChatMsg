@@ -1,9 +1,13 @@
 import os.path
 import random
+import html
 import sqlite3
 import threading
 import traceback
 from pprint import pprint
+import lz4.block
+import html
+import re
 
 from app.log import logger
 
@@ -53,10 +57,25 @@ class Msg:
                     lock.release()
 
     def get_messages(self, username_):
+        '''
+        return list
+            a[0]: localId,
+            a[1]: talkerId, （和strtalker对应的，不是群聊信息发送人）
+            a[2]: type,
+            a[3]: subType,
+            a[4]: is_sender,
+            a[5]: timestamp,
+            a[6]: status, （没啥用）
+            a[7]: str_content,
+            a[8]: str_time, （格式化的时间）
+            a[9]: msgSvrId,
+            a[10]: BytesExtra,
+            a[11]: CompressContent,
+        '''
         if not self.open_flag:
             return None
         sql = '''
-            select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra
+            select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra,CompressContent
             from MSG
             where StrTalker=?
             order by CreateTime
@@ -72,7 +91,7 @@ class Msg:
 
     def get_messages_all(self):
         sql = '''
-            select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra,StrTalker,Reserved1
+            select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra,StrTalker,Reserved1,CompressContent
             from MSG
             order by CreateTime
         '''
@@ -90,6 +109,7 @@ class Msg:
     def get_messages_length(self):
         sql = '''
             select count(*)
+            group by MsgSvrID
             from MSG
         '''
         if not self.open_flag:
@@ -106,7 +126,7 @@ class Msg:
 
     def get_message_by_num(self, username_, local_id):
         sql = '''
-                select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra
+                select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra,CompressContent
                 from MSG
                 where StrTalker = ? and localId < ?
                 order by CreateTime desc 
@@ -131,14 +151,14 @@ class Msg:
             return None
         if is_Annual_report_:
             sql = '''
-                select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra
+                select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra,CompressContent
                 from MSG
                 where StrTalker=? and Type=? and strftime('%Y',CreateTime,'unixepoch','localtime') = ?
                 order by CreateTime
             '''
         else:
             sql = '''
-            select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra
+            select localId,TalkerId,Type,SubType,IsSender,CreateTime,Status,StrContent,strftime('%Y-%m-%d %H:%M:%S',CreateTime,'unixepoch','localtime') as StrTime,MsgSvrID,BytesExtra,CompressContent
             from MSG
             where StrTalker=? and Type=?
             order by CreateTime
@@ -191,25 +211,57 @@ class Msg:
         for dialog in temp:
             msg1 = dialog[0]
             msg2 = dialog[1]
-            res.append((
-                (msg1[4], msg1[5], msg1[7].split(keyword), msg1[8]),
-                (msg2[4], msg2[5], msg2[7], msg2[8])
-            ))
+            try:
+                res.append((
+                    (msg1[4], msg1[5], msg1[7].split(keyword), msg1[8]),
+                    (msg2[4], msg2[5], msg2[7], msg2[8])
+                ))
+            except TypeError:
+                res.append((
+                    ('', '', ['', ''], ''),
+                    ('', '', '', '')
+                ))
         return res
+
+    def get_contact(self, contacts):
+        if not self.open_flag:
+            return None
+        try:
+            lock.acquire(True)
+            sql = '''select StrTalker, MAX(CreateTime) from MSG group by StrTalker'''
+            self.cursor.execute(sql)
+            res = self.cursor.fetchall()
+        finally:
+            lock.release()
+        res = {StrTalker: CreateTime for StrTalker, CreateTime in res}
+        contacts = [list(cur_contact) for cur_contact in contacts]
+        for i, cur_contact in enumerate(contacts):
+            if cur_contact[0] in res:
+                contacts[i].append(res[cur_contact[0]])
+            else:
+                contacts[i].append(0)
+        contacts.sort(key=lambda cur_contact: cur_contact[-1], reverse=True)
+        return contacts
 
     def get_messages_by_days(self, username_, is_Annual_report_=False, year_='2023'):
         if is_Annual_report_:
             sql = '''
                 SELECT strftime('%Y-%m-%d',CreateTime,'unixepoch','localtime') as days,count(MsgSvrID)
-                from MSG
-                where StrTalker = ? and strftime('%Y',CreateTime,'unixepoch','localtime') = ?
+                from (
+                    SELECT MsgSvrID, CreateTime
+                    FROM MSG
+                    WHERE StrTalker = ? AND strftime('%Y', CreateTime, 'unixepoch', 'localtime') = ?
+                )
                 group by days
             '''
         else:
             sql = '''
                 SELECT strftime('%Y-%m-%d',CreateTime,'unixepoch','localtime') as days,count(MsgSvrID)
-                from MSG
-                where StrTalker = ?
+                from (
+                    SELECT MsgSvrID, CreateTime
+                    FROM MSG
+                    WHERE StrTalker = ?
+                )
                 group by days
             '''
         result = None
@@ -229,16 +281,22 @@ class Msg:
     def get_messages_by_month(self, username_, is_Annual_report_=False, year_='2023'):
         if is_Annual_report_:
             sql = '''
-                    SELECT strftime('%Y-%m',CreateTime,'unixepoch','localtime') as days,count(MsgSvrID)
-                    from MSG
-                    where StrTalker = ? and strftime('%Y',CreateTime,'unixepoch','localtime') = ?
-                    group by days
+                SELECT strftime('%Y-%m',CreateTime,'unixepoch','localtime') as days,count(MsgSvrID)
+                from (
+                    SELECT MsgSvrID, CreateTime
+                    FROM MSG
+                    WHERE StrTalker = ? AND strftime('%Y', CreateTime, 'unixepoch', 'localtime') = ?
+                )
+                group by days
                 '''
         else:
             sql = '''
                 SELECT strftime('%Y-%m',CreateTime,'unixepoch','localtime') as days,count(MsgSvrID)
-                from MSG
-                where StrTalker = ?
+                from (
+                    SELECT MsgSvrID, CreateTime
+                    FROM MSG
+                    WHERE StrTalker = ?
+                )
                 group by days
             '''
         result = None
@@ -261,16 +319,22 @@ class Msg:
     def get_messages_by_hour(self, username_, is_Annual_report_=False, year_='2023'):
         if is_Annual_report_:
             sql = '''
-                    SELECT strftime('%H:00',CreateTime,'unixepoch','localtime') as hours,count(MsgSvrID)
-                    from MSG
+                SELECT strftime('%H:00',CreateTime,'unixepoch','localtime') as hours,count(MsgSvrID)
+                from (
+                    SELECT MsgSvrID, CreateTime
+                    FROM MSG
                     where StrTalker = ? and strftime('%Y',CreateTime,'unixepoch','localtime') = ?
-                    group by hours
+                )
+                group by hours
                 '''
         else:
             sql = '''
                 SELECT strftime('%H:00',CreateTime,'unixepoch','localtime') as hours,count(MsgSvrID)
-                from MSG
-                where StrTalker = ?
+                from (
+                    SELECT MsgSvrID, CreateTime
+                    FROM MSG
+                    where StrTalker = ?
+                )
                 group by hours
             '''
         result = None
@@ -325,9 +389,13 @@ if __name__ == '__main__':
     db_path = "./Msg/MSG.db"
     msg = Msg()
     msg.init_database()
-    result = msg.get_message_by_num('wxid_0o18ef858vnu22', 9999999)
+    result = msg.get_message_by_num('wxid_vtz9jk9ulzjt22', 9999999)
     print(result)
-    result = msg.get_messages_by_type('wxid_0o18ef858vnu22',43)
-    bytes_ = result[-1][-1]
-    print(bytes_)
-    print(bytes_)
+    result = msg.get_messages_by_type('wxid_vtz9jk9ulzjt22', 49)
+    for r in result:
+        type_ = r[2]
+        sub_type = r[3]
+        if type_ == 49 and sub_type == 57:
+            print(r)
+            print(r[-1])
+            break
